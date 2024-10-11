@@ -94,9 +94,7 @@ export async function getCurrentUser() {
   try {
     // Check if user is logged in
     const currentAccount = await getAccount();
-    console.log("1");
     if (!currentAccount) {
-      console.log("2");
       throw new Error("User is not authenticated.");
     }
 
@@ -110,7 +108,6 @@ export async function getCurrentUser() {
     if (!currentUser) {
       throw new Error("User data not found.");
     }
-    console.log("3", currentUser);
     return currentUser.documents[0];
   } catch (error) {
     console.error("Error fetching current user:", error);

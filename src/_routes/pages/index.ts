@@ -1,1 +1,9 @@
 export { default as Home } from "./Home";
+export { default as CreateGame } from "./CreateGame";
+export { default as EditOwnGames } from "./EditOwnGames";
+export { default as Explore } from "./Explore";
+export { default as OwnGames } from "./OwnGames";
+export { default as OwnGamesDetails } from "./OwnGamesDetails";
+export { default as Profile } from "./Profile";
+export { default as UpdateProfile } from "./UpdateProfile";
+export { default as LikedGames } from "./LikedGames";

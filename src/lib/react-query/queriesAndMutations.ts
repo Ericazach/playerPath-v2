@@ -7,15 +7,18 @@ import {
 import {
   createGame,
   createUserAccount,
+  deleteGame,
   deleteSavedGame,
   getCurrentUser,
+  getGamebyId,
   getRecentGames,
   likeGame,
   saveGame,
   signInAccount,
   signOutAccount,
+  uploadGame,
 } from "../appwrite/api";
-import { INewGame, INewUser } from "@/types";
+import { INewGame, INewUser, IUpdatePost } from "@/types";
 import { QUERY_KEYS } from "./queryKeys";
 
 export const useCreateUserAccount = () => {
@@ -43,9 +46,7 @@ export const useCreateGame = () => {
     mutationFn: (game: INewGame) => createGame(game),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: {
-          queryKey: [QUERY_KEYS.GET_RECENT_GAMES],
-        },
+        queryKey: [QUERY_KEYS.GET_RECENT_GAMES],
       });
     },
   });
@@ -104,7 +105,7 @@ export const useSaveGame = () => {
   });
 };
 
-export const useDeleteGame = () => {
+export const useDeleteSavedGame = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (saveRecordId: string) => deleteSavedGame(saveRecordId),
@@ -126,5 +127,39 @@ export const useGetCurrentUser = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_CURRENT_USER],
     queryFn: getCurrentUser,
+  });
+};
+
+export const useGetGameById = (gameId: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_GAME_BY_ID, gameId],
+    queryFn: () => getGamebyId(gameId),
+    enabled: !!gameId,
+  });
+};
+
+export const useUpdateGame = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (game: IUpdatePost) => uploadGame(game),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_GAME_BY_ID, data?.$id],
+      });
+    },
+  });
+};
+export const useDeleteGame = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ gameId, imageId }: { gameId: string; imageId: string }) =>
+      deleteGame(gameId, imageId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_RECENT_GAMES],
+      });
+    },
   });
 };

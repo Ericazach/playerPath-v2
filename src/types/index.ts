@@ -32,13 +32,12 @@ export type INewGame = {
 };
 
 export type IUpdatePost = {
-  postId: string;
-  caption: string;
+  gameId: string;
+  title: string;
   imageId: string;
   imageUrl: URL;
   file: File[];
-  location?: string;
-  tags?: string;
+  description?: string;
 };
 
 export type IUser = {

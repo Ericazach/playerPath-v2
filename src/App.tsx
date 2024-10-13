@@ -5,8 +5,10 @@ import SignupForm from "./_auth/forms/SignupForm";
 import AuthLayout from "./_auth/AuthLayout";
 import {
   CreateGame,
+  EditGame,
   EditOwnGames,
   Explore,
+  GameDetails,
   Home,
   OwnGames,
   OwnGamesDetails,
@@ -36,6 +38,10 @@ function App() {
           <Route path="/profile/:id/*" element={<Profile />} />
           <Route path="/update-profile/:id" element={<UpdateProfile />} />
           <Route path="/create-game" element={<CreateGame />} />
+          <Route path="/" element={<CreateGame />} />
+          <Route path="/games/:id" element={<GameDetails />} />
+          <Route path="/" element={<CreateGame />} />
+          <Route path="/update-game/:id" element={<EditGame />} />
         </Route>
       </Routes>
       <Toaster />

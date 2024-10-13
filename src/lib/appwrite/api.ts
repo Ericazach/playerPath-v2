@@ -1,7 +1,7 @@
 import { ID, ImageGravity, Query } from "appwrite";
 
 import { appwriteConfig, account, databases, avatars, storage } from "./config";
-import { INewGame, INewUser } from "@/types";
+import { INewGame, INewUser, IUpdatePost } from "@/types";
 
 export async function createUserAccount(user: INewUser) {
   try {
@@ -269,6 +269,84 @@ export async function deleteSavedGame(savedRecordId: string) {
     if (!statusCode) {
       throw Error;
     }
+    return {
+      status: "ok",
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getGamebyId(gameId: string) {
+  try {
+    const game = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.gameCollectionId,
+      gameId
+    );
+    return game;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function uploadGame(game: IUpdatePost) {
+  const hasFileToUpload = game.file.length > 0;
+
+  try {
+    let image = {
+      imageUrl: game.imageUrl,
+      imageId: game.imageId,
+    };
+
+    if (hasFileToUpload) {
+      const uploadedFile = await uploadFile(game.file[0]);
+      if (!uploadedFile) throw Error;
+
+      const fileUrl = await getFilePreview(uploadedFile.$id);
+
+      if (!fileUrl) {
+        deleteFile(uploadedFile.$id);
+        throw Error;
+      }
+
+      const newFileUrl = new URL(fileUrl);
+
+      image = { ...image, imageUrl: newFileUrl, imageId: uploadedFile.$id };
+    }
+
+    const updatedGame = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.gameCollectionId,
+      game.gameId,
+      {
+        title: game.title,
+        description: game.description,
+        imageUrl: image.imageUrl,
+        imageId: image.imageId,
+      }
+    );
+
+    if (!updatedGame) {
+      await deleteFile(game.imageId);
+      throw Error;
+    }
+
+    return updatedGame;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteGame(gameId: string, imageId: string) {
+  try {
+    if (!gameId || !imageId) throw Error;
+    await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.gameCollectionId,
+      gameId
+    );
+
     return {
       status: "ok",
     };

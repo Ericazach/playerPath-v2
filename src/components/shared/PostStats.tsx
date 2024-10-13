@@ -1,5 +1,6 @@
 import {
   useDeleteGame,
+  useDeleteSavedGame,
   useGetCurrentUser,
   useLikeGame,
   useSaveGame,
@@ -22,7 +23,7 @@ const PostStats = ({ game, userId }: GameStatsProps) => {
 
   const { mutate: likeGame } = useLikeGame();
   const { mutate: saveGame, isPending: isSaving } = useSaveGame();
-  const { mutate: deleteGame, isPending: isDeleting } = useDeleteGame();
+  const { mutate: deleteGame, isPending: isDeleting } = useDeleteSavedGame();
 
   const { data: currentUser } = useGetCurrentUser();
 
@@ -63,7 +64,6 @@ const PostStats = ({ game, userId }: GameStatsProps) => {
     setIsSaved(true);
   };
 
-  console.log(currentUser, "current user");
   return (
     <div className="flex justify-between items-center z-20">
       <div className="flex gap-3 mr-5">

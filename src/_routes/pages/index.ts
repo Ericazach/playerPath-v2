@@ -7,3 +7,5 @@ export { default as OwnGamesDetails } from "./OwnGamesDetails";
 export { default as Profile } from "./Profile";
 export { default as UpdateProfile } from "./UpdateProfile";
 export { default as LikedGames } from "./LikedGames";
+export { default as GameDetails } from "./GameDetails";
+export { default as EditGame } from "./EditGame";

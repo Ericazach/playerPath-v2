@@ -24,12 +24,11 @@ export type IUpdateUser = {
   file: File[];
 };
 
-export type INewPost = {
+export type INewGame = {
   userId: string;
-  caption: string;
+  title: string;
   file: File[];
-  location?: string;
-  tags?: string;
+  description: string;
 };
 
 export type IUpdatePost = {

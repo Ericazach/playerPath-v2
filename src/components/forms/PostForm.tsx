@@ -16,12 +16,23 @@ import { Textarea } from "../ui/textarea";
 import FileUploader from "../shared/FileUploader";
 import { PostValidation } from "@/lib/validation";
 import { Models } from "appwrite";
+import { useCreateGame } from "@/lib/react-query/queriesAndMutations";
+import { useUserContext } from "@/context/AuthContext";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
+import Loader from "../shared/Loader";
 
 type PostFormProps = {
   game?: Models.Document;
 };
 
 const PostForm = ({ game }: PostFormProps) => {
+  const { mutateAsync: createGame, isPending: isLoadingCreate } =
+    useCreateGame();
+  const { user } = useUserContext();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
@@ -33,10 +44,18 @@ const PostForm = ({ game }: PostFormProps) => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof PostValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof PostValidation>) {
+    const newGame = await createGame({
+      ...values,
+      userId: user?.id,
+    });
+    if (!newGame) {
+      return toast({
+        title: "Failed to create game",
+      });
+    }
+
+    navigate("/");
   }
 
   return (
@@ -97,13 +116,13 @@ const PostForm = ({ game }: PostFormProps) => {
         />
         <div className="flex gap-4 items-center justify-end">
           <Button type="button" className="shad-button_dark_4">
-            cancel
+            Cancel
           </Button>
           <Button
             type="submit"
             className="shad-button_primary whitespace-nowrap"
           >
-            Submit
+            {isLoadingCreate ? <Loader /> : "Create Game"}
           </Button>
         </div>
       </form>

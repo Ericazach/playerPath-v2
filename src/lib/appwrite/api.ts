@@ -185,7 +185,7 @@ export async function getFilePreview(fileId: string) {
       fileId,
       2000,
       2000,
-      ImageGravity.Top,
+      ImageGravity.Center,
       100
     );
 
@@ -198,6 +198,77 @@ export async function getFilePreview(fileId: string) {
 export async function deleteFile(fileId: string) {
   try {
     await storage.deleteFile(appwriteConfig.storageId, fileId);
+    return {
+      status: "ok",
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getRecentGames() {
+  const games = await databases.listDocuments(
+    appwriteConfig.databaseId,
+    appwriteConfig.gameCollectionId,
+    [Query.orderDesc("$createdAt"), Query.limit(20)]
+  );
+
+  if (!games) {
+    throw Error;
+  }
+  return games;
+}
+
+export async function likeGame(gameId: string, likesArray: string[]) {
+  try {
+    const updatedGame = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.gameCollectionId,
+      gameId,
+      {
+        likes: likesArray,
+      }
+    );
+    if (!updatedGame) {
+      throw Error;
+    }
+    return updatedGame;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function saveGame(gameId: string, userId: string) {
+  try {
+    const savedGame = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.ownGameCollectionId,
+      ID.unique(),
+      {
+        user: userId,
+        game: gameId,
+        State: "saved",
+      }
+    );
+    if (!savedGame) {
+      throw Error;
+    }
+    return savedGame;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteSavedGame(savedRecordId: string) {
+  try {
+    const statusCode = await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.ownGameCollectionId,
+      savedRecordId
+    );
+    if (!statusCode) {
+      throw Error;
+    }
     return {
       status: "ok",
     };

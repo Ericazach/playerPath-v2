@@ -38,7 +38,6 @@ function App() {
           <Route path="/create-game" element={<CreateGame />} />
         </Route>
       </Routes>
-
       <Toaster />
     </main>
   );

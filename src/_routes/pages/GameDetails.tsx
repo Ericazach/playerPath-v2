@@ -83,10 +83,10 @@ const GameDetails = () => {
             </div>
 
             <hr className="border w-full border-dark-4/80" />
-
+ 
             <div className="small-medium lg:base-medium py-2">
               <p>{game?.title}</p>
-              <p className="text -light-3">{game?.description}</p>
+              <p className="text text-light-3">{game?.description}</p>
             </div>
 
             <div className="w-full">

@@ -7,7 +7,7 @@ const Home = () => {
   const {
     data: games,
     isPending: isPostLoading,
-    isError: isErrorGames,
+    // isError: isErrorGames,
   } = useGetRecentGames();
 
   return (

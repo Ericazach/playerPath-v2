@@ -30,7 +30,7 @@ const GameCard = ({ game }: GameCardProps) => {
             <p className="base-medium lg:body-bold text-light-1">
               {game.creator.name}
             </p>
-            <div className="flex flex-center text-light-3">
+            <div className="flex flex-start text-light-3">
               <p className="subtle-semibold lg:small-regular">
                 {multiFormatDateString(game.$createdAt)}
               </p>
@@ -45,8 +45,9 @@ const GameCard = ({ game }: GameCardProps) => {
         </Link>
       </div>
       <Link to={`/games/${game.$id}`}>
-        <div className="small-medium lg:base-medium py-5">
+        <div className="flex flex-col flex-1 w-full small-medium lg:base-regular py-5">
           <p className="">{game.title}</p>
+          <p className="text-light-3">{game?.description}</p>
         </div>
         <img
           src={game.imageUrl || "assets/icons/profile-placeholder.svg"}

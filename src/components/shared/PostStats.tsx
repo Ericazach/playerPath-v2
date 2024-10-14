@@ -1,5 +1,4 @@
 import {
-  useDeleteGame,
   useDeleteSavedGame,
   useGetCurrentUser,
   useLikeGame,
@@ -11,12 +10,12 @@ import React, { useEffect, useState } from "react";
 import Loader from "./Loader";
 
 type GameStatsProps = {
-  game: Models.Document;
+  game?: Models.Document;
   userId: string;
 };
 
 const PostStats = ({ game, userId }: GameStatsProps) => {
-  const likesList = game.likes.map((user: Models.Document) => user.$id);
+  const likesList = game?.likes.map((user: Models.Document) => user.$id);
 
   const [likes, setLikes] = useState(likesList);
   const [isSaved, setIsSaved] = useState(false);
@@ -28,7 +27,7 @@ const PostStats = ({ game, userId }: GameStatsProps) => {
   const { data: currentUser } = useGetCurrentUser();
 
   const savedGame = currentUser?.ownGame.find(
-    (record: Models.Document) => record.game.$id === game.$id
+    (record: Models.Document) => record.game.$id === game?.$id
   );
 
   useEffect(() => {
@@ -48,7 +47,7 @@ const PostStats = ({ game, userId }: GameStatsProps) => {
 
     setLikes(newLikes);
 
-    likeGame({ gameId: game.$id, likedArray: newLikes });
+    likeGame({ gameId: game?.$id || "", likedArray: newLikes });
   };
 
   const handleSave = (e: React.MouseEvent) => {
@@ -60,7 +59,7 @@ const PostStats = ({ game, userId }: GameStatsProps) => {
       return;
     }
 
-    saveGame({ gameId: game.$id, userId });
+    saveGame({ gameId: game?.$id || "", userId });
     setIsSaved(true);
   };
 

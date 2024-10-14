@@ -11,9 +11,11 @@ import {
   deleteSavedGame,
   getCurrentUser,
   getGamebyId,
+  getInfiniteGames,
   getRecentGames,
   likeGame,
   saveGame,
+  searchGames,
   signInAccount,
   signOutAccount,
   uploadGame,
@@ -150,6 +152,7 @@ export const useUpdateGame = () => {
     },
   });
 };
+
 export const useDeleteGame = () => {
   const queryClient = useQueryClient();
 
@@ -161,5 +164,25 @@ export const useDeleteGame = () => {
         queryKey: [QUERY_KEYS.GET_RECENT_GAMES],
       });
     },
+  });
+};
+
+export const useGetGames = () => {
+  return useInfiniteQuery({
+    queryKey: [QUERY_KEYS.GET_INFINITE_GAMES],
+    queryFn: getInfiniteGames,
+    getNextPageParam: (lastPage) => {
+      if (lastPage && lastPage.documents.length === 0) return null;
+      const lastId = lastPage?.documents[lastPage.documents.length - 1].$id;
+      return lastId;
+    },
+  });
+};
+
+export const useSearchGames = (searchTerm: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.SEARCH_GAMES, searchTerm],
+    queryFn: () => searchGames(searchTerm),
+    enabled: !!searchTerm,
   });
 };

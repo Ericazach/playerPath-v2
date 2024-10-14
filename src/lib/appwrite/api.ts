@@ -354,3 +354,46 @@ export async function deleteGame(gameId: string, imageId: string) {
     console.log(error);
   }
 }
+
+export async function getInfiniteGames({ pageParam }: { pageParam: number }) {
+  const queries: any[] = [Query.orderDesc("$createdAt"), Query.limit(20)];
+
+  if (pageParam) {
+    queries.push(Query.cursorAfter(pageParam.toString()));
+  }
+
+  try {
+    const games = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.gameCollectionId,
+      queries
+    );
+
+    if (!games) {
+      throw Error;
+    }
+    return games;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+
+export async function searchGames( searchTerm: string) {
+
+  try {
+    const games = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.gameCollectionId,
+      [Query.search("title", searchTerm)]
+    )
+
+    if (!games) {
+      throw Error;
+    }
+    return games;
+  } catch (error) {
+    console.log(error);
+  }
+}

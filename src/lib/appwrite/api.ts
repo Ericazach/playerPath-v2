@@ -355,11 +355,15 @@ export async function deleteGame(gameId: string, imageId: string) {
   }
 }
 
-export async function getInfiniteGames({ pageParam }: { pageParam: number }) {
-  const queries: any[] = [Query.orderDesc("$createdAt"), Query.limit(20)];
+export async function getInfiniteGames({ pageParam }: { pageParam?: string }) {
+  // Define the queries array with the correct type
+  const queries: (ReturnType<typeof Query.orderDesc> | ReturnType<typeof Query.limit> | ReturnType<typeof Query.cursorAfter>)[] = [
+    Query.orderDesc("$createdAt"),
+    Query.limit(20),
+  ];
 
   if (pageParam) {
-    queries.push(Query.cursorAfter(pageParam.toString()));
+    queries.push(Query.cursorAfter(pageParam));
   }
 
   try {
@@ -370,24 +374,22 @@ export async function getInfiniteGames({ pageParam }: { pageParam: number }) {
     );
 
     if (!games) {
-      throw Error;
+      throw new Error("Error al obtener los juegos");
     }
+
     return games;
   } catch (error) {
     console.log(error);
   }
 }
 
-
-
-export async function searchGames( searchTerm: string) {
-
+export async function searchGames(searchTerm: string) {
   try {
     const games = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.gameCollectionId,
       [Query.search("title", searchTerm)]
-    )
+    );
 
     if (!games) {
       throw Error;

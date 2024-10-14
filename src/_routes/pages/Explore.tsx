@@ -1,6 +1,5 @@
 import GridGameList from "@/components/shared/GridGameList";
 import Loader from "@/components/shared/Loader";
-import SearchResults from "@/components/shared/SearchResults";
 import { Input } from "@/components/ui/input";
 import useDebounce from "@/hooks/useDebounce";
 import {
@@ -9,6 +8,26 @@ import {
 } from "@/lib/react-query/queriesAndMutations";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
+
+export type SearchResultProps = {
+  isSearchFetching: boolean;
+  searchedGames: any;
+};
+
+const SearchResults = ({
+  isSearchFetching,
+  searchedGames,
+}: SearchResultProps) => {
+  if (isSearchFetching) {
+    return <Loader />;
+  } else if (searchedGames && searchedGames.documents.length > 0) {
+    return <GridGameList games={searchedGames.documents} />;
+  } else {
+    return (
+      <p className="text-light-4 mt-10 text-center w-full">No results found</p>
+    );
+  }
+};
 
 const Explore = () => {
   const { ref, inView } = useInView();
@@ -73,7 +92,7 @@ const Explore = () => {
         {shouldShowSearchResults ? (
           <SearchResults
             isSearchFetching={isSearchFetching}
-            searchedGames={searchedGames}
+            searchedGames={searchedGames?.documents || []}
           />
         ) : shouldShowGames ? (
           <p className="text-light-4 mt-10 text-center w-full">

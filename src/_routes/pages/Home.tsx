@@ -14,7 +14,7 @@ const Home = () => {
     <div className="flex flex-1">
       <div className="home-container">
         <div className="home-posts">
-          <h2 className="h2-bold md:h2-bold text-left w-full">Home Feed</h2>
+          <h2 className="h2-bold md:h2-bold text-left w-full">Recent Games</h2>
 
           {isPostLoading && !games ? (
             <Loader />

@@ -18,7 +18,7 @@ const OwnGames = () => {
   if (!saveGames) {
     return <Loader />;
   }
-
+  console.log(user);
   return (
     <div className="saved-container">
       <div className="flex gap-2 w-full max-w-5xl">

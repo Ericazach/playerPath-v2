@@ -12,7 +12,7 @@ const BottomBar = () => {
     <section className="bottom-bar">
       {sidebarLinks.map((link: INavLink) => {
         const isActive = pathname === link.route;
-        if (link.label === "Create Game" && !user?.isAdmin) {
+        if (link.label === "Create Game" && user?.isAdmin === false) {
           return null;
         }
 

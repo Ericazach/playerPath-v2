@@ -17,6 +17,7 @@ const LeftSideBar = () => {
       navigate(0);
     }
   }, [isSuccess]);
+
   return (
     <nav className="leftsidebar">
       <div className="flex flex-col gap-11">
@@ -42,15 +43,16 @@ const LeftSideBar = () => {
         <ul className="flex flex-col gap-6">
           {sidebarLinks.map((link: INavLink) => {
             const isActive = pathname === link.route;
-            if (link.label === "Create Game" && !user?.isAdmin) {
-              return null; 
+
+            if (link.label === "Create Game" && user?.isAdmin === false) {
+              return null;
             }
-            
+
             return (
               <li
                 key={link.label}
                 className={`leftsidebar-link group ${
-                  isActive && "bg-primary-500"
+                  isActive ? "bg-primary-500" : ""
                 }`}
               >
                 <NavLink
@@ -61,7 +63,7 @@ const LeftSideBar = () => {
                     src={link.imgURL}
                     alt={link.label}
                     className={`group-hover:invert-white ${
-                      isActive && "invert-white"
+                      isActive ? "invert-white" : ""
                     }`}
                   />
                   {link.label}

@@ -1,21 +1,24 @@
 import { Models } from "appwrite";
 import Loader from "./Loader";
-// import GridGameList from "./GridGameList";
+import GridGameList from "./GridGameList";
 
 type SearchResultsProps = {
   isSearchFetching: boolean;
-  searchedGames: Models.Document[];
+  searchedGames?: {
+    documents: Models.Document[];
+  };
 };
 
 const SearchResults = ({
   isSearchFetching,
-}: // searchedGames,
-SearchResultsProps) => {
+  searchedGames,
+}: SearchResultsProps) => {
   if (isSearchFetching) return <Loader />;
 
-  // if (searchedGames && searchedGames.documents.length > 0) {
-  //   return <GridGameList games={searchedGames.documents} />;
-  // }
+  if (searchedGames && searchedGames.documents.length > 0) {
+    return <GridGameList games={searchedGames.documents} />;
+  }
+
   return (
     <p className="text-center text-light-4 mt-10 w-full">No results found</p>
   );

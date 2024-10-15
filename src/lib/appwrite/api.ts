@@ -39,6 +39,7 @@ export async function saveUserToDB(user: {
   name: string;
   imageUrl: URL;
   username?: string;
+  isAdmin?: boolean;
 }) {
   try {
     const newUser = await databases.createDocument(
@@ -357,10 +358,11 @@ export async function deleteGame(gameId: string, imageId: string) {
 
 export async function getInfiniteGames({ pageParam }: { pageParam?: string }) {
   // Define the queries array with the correct type
-  const queries: (ReturnType<typeof Query.orderDesc> | ReturnType<typeof Query.limit> | ReturnType<typeof Query.cursorAfter>)[] = [
-    Query.orderDesc("$createdAt"),
-    Query.limit(20),
-  ];
+  const queries: (
+    | ReturnType<typeof Query.orderDesc>
+    | ReturnType<typeof Query.limit>
+    | ReturnType<typeof Query.cursorAfter>
+  )[] = [Query.orderDesc("$createdAt"), Query.limit(20)];
 
   if (pageParam) {
     queries.push(Query.cursorAfter(pageParam));

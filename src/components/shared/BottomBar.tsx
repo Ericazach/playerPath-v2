@@ -1,14 +1,20 @@
 import { sidebarLinks } from "@/constants";
+import { useUserContext } from "@/context/AuthContext";
 import { INavLink } from "@/types";
 import { useLocation, Link } from "react-router-dom";
 
 const BottomBar = () => {
   const { pathname } = useLocation();
 
+  const { user } = useUserContext();
+
   return (
     <section className="bottom-bar">
       {sidebarLinks.map((link: INavLink) => {
         const isActive = pathname === link.route;
+        if (link.label === "Create Game" && !user?.isAdmin) {
+          return null;
+        }
 
         return (
           <Link
@@ -22,7 +28,7 @@ const BottomBar = () => {
               src={link.imgURL}
               alt={link.label}
               width={16}
-              height={16} 
+              height={16}
               className={`${isActive && "invert-white"}`}
             />
             <p className="tiny-medium text-light-2">{link.label}</p>

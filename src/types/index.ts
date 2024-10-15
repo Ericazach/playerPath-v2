@@ -47,6 +47,7 @@ export type IUser = {
   email: string;
   imageUrl: string;
   bio: string;
+  isAdmin?: boolean;
 };
 
 export type INewUser = {
@@ -54,4 +55,5 @@ export type INewUser = {
   email: string;
   username: string;
   password: string;
+  isAdmin?: boolean;
 };

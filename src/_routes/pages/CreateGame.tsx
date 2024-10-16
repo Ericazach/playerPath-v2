@@ -13,7 +13,7 @@ const CreateGame = () => {
           />
           <h2 className="h3-bold md:h2-bold text-left w-full">Create Game</h2>
         </div>
-        <PostForm action="Create" />
+        <PostForm action="Create"  />
       </div>
     </div>
   );

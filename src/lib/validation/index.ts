@@ -33,3 +33,14 @@ export const PostValidation = z.object({
   }),
   file: z.custom<File[]>(),
 });
+
+export const EditPostValidation = z.object({
+  title: z.string().min(5).max(100, {
+    message: "Title must be between 5 and 100 chars.",
+  }),
+  description: z.string().min(5).max(500, {
+    message: "Description must be between 5 and 500 chars.",
+  }),
+  file: z.custom<File[]>(),
+  State: z.string(),
+});

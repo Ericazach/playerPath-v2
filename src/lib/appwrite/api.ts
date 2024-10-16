@@ -414,3 +414,27 @@ export async function getOwnGamebyId(gameId: string) {
     console.log(error);
   }
 }
+
+export async function uploadOwnGame(game: IUpdatePost) {
+  // const hasFileToUpload = game.file.length > 0;
+
+  try {
+    const updatedGame = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.ownGameCollectionId,
+      game.gameId,
+      {
+        State: game.State,
+      }
+    );
+
+    if (!updatedGame) {
+      await deleteFile(game.imageId);
+      throw Error;
+    }
+
+    return updatedGame;
+  } catch (error) {
+    console.log(error);
+  }
+}

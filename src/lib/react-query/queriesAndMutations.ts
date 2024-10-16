@@ -20,6 +20,7 @@ import {
   signInAccount,
   signOutAccount,
   uploadGame,
+  uploadOwnGame,
 } from "../appwrite/api";
 import { INewGame, INewUser, IUpdatePost } from "@/types";
 import { QUERY_KEYS } from "./queryKeys";
@@ -154,6 +155,19 @@ export const useUpdateGame = () => {
 
   return useMutation({
     mutationFn: (game: IUpdatePost) => uploadGame(game),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_GAME_BY_ID, data?.$id],
+      });
+    },
+  });
+};
+
+export const useUpdateOwnGame = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (game: IUpdatePost) => uploadOwnGame(game),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_GAME_BY_ID, data?.$id],

@@ -44,6 +44,8 @@ module.exports = {
 			},
 			fontFamily: {
 				inter: ['Inter', 'sans-serif'],
+				Agdasima: ['Agdasima', 'sans-serif'],
+				Londrina: ['Londrina Sketch', 'sans-serif'],
 
 			},
 			keyframes: {

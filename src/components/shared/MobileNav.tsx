@@ -39,13 +39,16 @@ const MobileNav = () => {
         <SheetContent side="left" className="border-none bg-dark-2">
           <div className="flex flex-col justify-between h-full">
             <div>
-              <Link to="/" className="flex gap-3 items-center mb-14">
+              <Link to="/" className="flex items-center mb-14">
                 <img
-                  src="/assets/images/logo.png"
+                  src="/assets/images/logoSm.png"
                   alt="logo"
                   width={60}
                   height={60}
                 />
+                <p className="text-2xl font-Londrina tracking-wide">
+                  Player Path
+                </p>
               </Link>
               <ul className="flex flex-col gap-6">
                 {sidebarLinks.map((link: INavLink) => {

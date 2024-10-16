@@ -21,13 +21,14 @@ const LeftSideBar = () => {
   return (
     <nav className="leftsidebar">
       <div className="flex flex-col gap-11">
-        <Link to="/" className="flex gap-3 items-center">
+        <Link to="/" className="flex items-center">
           <img
-            src="/assets/images/logo.png"
+            src="/assets/images/logoSm.png"
             alt="logo"
-            width={60}
-            height={60}
+            width={80}
+            height={80}
           />
+          <p className="text-3xl font-Londrina tracking-wide">Player Path</p>
         </Link>
         <Link to={`/profile/${user?.id}`} className="flex gap-3 items-center">
           <img

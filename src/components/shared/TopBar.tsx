@@ -20,15 +20,16 @@ const TopBar = () => {
   return (
     <section className="topbar">
       <div className="flex-between py-4 px-5">
-        <div className="flex gap-3 items-center">
+        <div className="flex items-center">
           <Link to="/" className="flex gap-3 items-center">
             <img
-              src="/assets/images/logo.png"
+              src="/assets/images/logoSm.png"
               alt="logo"
-              width={60}
-              height={60}
+              width={70}
+              height={70}
             />
           </Link>
+          <p className="text-3xl font-Londrina tracking-wide">Player Path</p>
         </div>
 
         <div className="flex gap-4">

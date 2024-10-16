@@ -17,7 +17,7 @@ export const sidebarLinks = [
   {
     imgURL: "/assets/icons/gallery-add.svg",
     route: "/create-game",
-    label: "Create Game",
+    label: "Create",
   },
 ];
 

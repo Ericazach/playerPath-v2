@@ -9,7 +9,7 @@ type GridGamesListProps = {
   showStats?: boolean;
 };
 
-const GridGameList = ({
+const GridOwnGameList = ({
   games,
   showUser = true,
   showStats = true,
@@ -19,14 +19,22 @@ const GridGameList = ({
   return (
     <ul className="grid-container">
       {games.map((game) => (
-        <li key={game.$id} className="relative min-w-80 h-80">
-          <Link to={`/games/${game.$id}`} className="grid-post_link">
+        <li key={game.game.$id} className="relative min-w-80 h-80">
+          <Link to={`/ownGames/${game.$id}`} className="grid-post_link">
             <img
-              src={game.imageUrl}
+              src={game.game.imageUrl}
               alt="game"
               className="w-full h-full object-cover"
             />
           </Link>
+          <div className="absolute top-0 right-0 p-1 opacity-75">
+            <button
+              type="button"
+              className="text-white bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-700 font-bold rounded-lg text-base uppercase px-5 py-2.5 text-center me-2 mb-2"
+            >
+              {game?.State}
+            </button>
+          </div>
           <div className="grid-post_user">
             {showUser && (
               <div className="flex items-center justify-start gap-2 flex-1 ">
@@ -36,7 +44,7 @@ const GridGameList = ({
                   className="w-8 h-8 rounded-full"
                 /> */}
                 <p className="line-clamp-1 font-semibold text-lg bg-dark-4 bg-opacity-40 rounded-xl">
-                  {game.title}
+                  {game.game.title}
                 </p>
               </div>
             )}
@@ -48,4 +56,4 @@ const GridGameList = ({
   );
 };
 
-export default GridGameList;
+export default GridOwnGameList;

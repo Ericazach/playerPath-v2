@@ -1,25 +1,25 @@
 import PostStats from "@/components/shared/PostStats";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
 import {
-  useDeleteGame,
+  // useDeleteGame,
   useGetGameById,
 } from "@/lib/react-query/queriesAndMutations";
-import { multiFormatDateString } from "@/lib/utils";
+// import { multiFormatDateString } from "@/lib/utils";
 import { Loader } from "lucide-react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const GameDetails = () => {
   const { id } = useParams();
   const { data: game, isPending } = useGetGameById(id || "");
-  const { mutate: deleteGame } = useDeleteGame();
+  // const { mutate: deleteGame } = useDeleteGame();
   const { user } = useUserContext();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const handleDeletePost = () => {
-    deleteGame({ gameId: id || "", imageId: game?.imageId });
-    navigate("/");
-  };
+  // const handleDeletePost = () => {
+  //   deleteGame({ gameId: id || "", imageId: game?.imageId });
+  //   navigate("/");
+  // };
 
   return (
     <div className="post_details-container">
@@ -29,7 +29,7 @@ const GameDetails = () => {
         <div className="post_details-card">
           <img src={game?.imageUrl} alt="game" className="post_details-img" />
           <div className="post_details-info">
-            <div className="flex-between w-full">
+            {/* <div className="flex-between w-full">
               <Link
                 to={`/profile/${game?.creator.$id}`}
                 className="flex items-center gap-3"
@@ -83,9 +83,9 @@ const GameDetails = () => {
             </div>
 
             <hr className="border w-full border-dark-4/80" />
- 
-            <div className="small-medium lg:base-medium py-2">
-              <p>{game?.title}</p>
+  */}
+            <div className="flex gap-3 flex-col small-medium lg:base-medium py-2">
+              <p className="font-bold text-xl md:text-2xl text-light-1">{game?.title}</p>
               <p className="text text-light-3">{game?.description}</p>
             </div>
 

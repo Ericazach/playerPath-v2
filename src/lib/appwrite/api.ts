@@ -401,3 +401,16 @@ export async function searchGames(searchTerm: string) {
     console.log(error);
   }
 }
+
+export async function getOwnGamebyId(gameId: string) {
+  try {
+    const game = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.ownGameCollectionId,
+      gameId
+    );
+    return game;
+  } catch (error) {
+    console.log(error);
+  }
+}

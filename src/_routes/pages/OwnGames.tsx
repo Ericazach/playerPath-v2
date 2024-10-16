@@ -1,4 +1,4 @@
-import GridGameList from "@/components/shared/GridGameList";
+import GridOwnGameList from "@/components/shared/GridOwnGamesList";
 import Loader from "@/components/shared/Loader";
 import { useGetCurrentUser } from "@/lib/react-query/queriesAndMutations";
 import { Models } from "appwrite";
@@ -18,7 +18,11 @@ const OwnGames = () => {
   if (!saveGames) {
     return <Loader />;
   }
-  console.log(user);
+
+  const ownGames = user?.ownGame;
+
+  console.log(user?.ownGame);
+  console.log(saveGames);
   return (
     <div className="saved-container">
       <div className="flex gap-2 w-full max-w-5xl">
@@ -39,7 +43,7 @@ const OwnGames = () => {
           {saveGames.length === 0 ? (
             <p className="text-light-4">No available Games</p>
           ) : (
-            <GridGameList games={saveGames} showStats={false} />
+            <GridOwnGameList games={ownGames} showStats={false} />
           )}
         </ul>
       )}

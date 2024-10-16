@@ -12,6 +12,7 @@ import {
   getCurrentUser,
   getGamebyId,
   getInfiniteGames,
+  getOwnGamebyId,
   getRecentGames,
   likeGame,
   saveGame,
@@ -136,6 +137,14 @@ export const useGetGameById = (gameId: string) => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_GAME_BY_ID, gameId],
     queryFn: () => getGamebyId(gameId),
+    enabled: !!gameId,
+  });
+};
+
+export const useOwnGameById = (gameId: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_GAME_BY_ID, gameId],
+    queryFn: () => getOwnGamebyId(gameId),
     enabled: !!gameId,
   });
 };

@@ -1,5 +1,5 @@
 import { useUserContext } from "@/context/AuthContext";
-import { multiFormatDateString } from "@/lib/utils";
+// import { multiFormatDateString } from "@/lib/utils";
 import { Models } from "appwrite";
 import { Link } from "react-router-dom";
 import PostStats from "./PostStats";
@@ -15,7 +15,7 @@ const GameCard = ({ game }: GameCardProps) => {
 
   return (
     <div className="post-card">
-      <div className="flex-between">
+      {/* <div className="flex-between">
         <div className="flex items-center gap-3">
           <Link to={`/profile/${game.creator.$id}`}>
             <img
@@ -43,10 +43,10 @@ const GameCard = ({ game }: GameCardProps) => {
         >
           <img src="/assets/icons/edit.svg" alt="edit" width={20} height={20} />
         </Link>
-      </div>
+      </div> */}
       <Link to={`/games/${game.$id}`}>
-        <div className="flex flex-col flex-1 w-full small-medium lg:base-regular py-5">
-          <p className="">{game.title}</p>
+        <div className="flex flex-col flex-1 w-full small-medium lg:base-regular gap-3 py-5">
+          <p className="text-light-1 text-2xl font-bold">{game.title}</p>
           <p className="text-light-3">{game?.description}</p>
         </div>
         <img

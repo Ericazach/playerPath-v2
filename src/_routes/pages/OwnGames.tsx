@@ -20,9 +20,6 @@ const OwnGames = () => {
   }
 
   const ownGames = user?.ownGame;
-
-  console.log(user?.ownGame);
-  console.log(saveGames);
   return (
     <div className="saved-container">
       <div className="flex gap-2 w-full max-w-5xl">

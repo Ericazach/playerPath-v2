@@ -30,7 +30,7 @@ const GridOwnGameList = ({
           <div className="absolute top-0 right-0 p-1 opacity-75">
             <button
               type="button"
-              className="text-white bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-700 font-bold rounded-lg text-base uppercase px-5 py-2.5 text-center me-2 mb-2"
+              className="text-white bg-gradient-to-r from-light-4 via-light-3 to-light-4 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300  font-bold rounded-lg text-base uppercase px-5 py-2.5 text-center me-2 mb-2"
             >
               {game?.State}
             </button>

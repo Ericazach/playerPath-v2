@@ -1,8 +1,5 @@
-
 const EditOwnGames = () => {
-  return (
-    <div>EditOwnGames</div>
-  )
-}
+  return <div>Editing</div>;
+};
 
-export default EditOwnGames
+export default EditOwnGames;

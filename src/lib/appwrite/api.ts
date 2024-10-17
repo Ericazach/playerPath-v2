@@ -415,6 +415,19 @@ export async function getOwnGamebyId(gameId: string) {
   }
 }
 
+export async function getUserbyId(userId: string) {
+  try {
+    const user = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      userId
+    );
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function uploadOwnGame(game: IUpdatePost) {
   // const hasFileToUpload = game.file.length > 0;
 

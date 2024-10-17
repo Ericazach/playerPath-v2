@@ -42,11 +42,11 @@ const Profile = () => {
                 @{currentUser.username}
               </p>
             </div>
+            <p className="small-medium md:base-medium text-light-2 mt-7 max-w-screen-sm">
+              {currentUser.bio}
+            </p>
           </div>
         </div>
-        <p className="small-medium md:base-medium text-center xl:text-left mt-7 max-w-screen-sm">
-          {currentUser.bio}
-        </p>
         <div className="flex justify-center gap-4">
           <div className={`${user.id !== currentUser.$id && "hidden"}`}>
             <Link
@@ -74,7 +74,7 @@ const Profile = () => {
           <Link
             to={`/profile/${user.id}`}
             className={`profile-tab rounded-l-lg ${
-              pathname === `/profile/${user.id}` && "!bg-dark-3"
+              pathname === `/profile/${user.id}` && "!bg-dark-4"
             }`}
           >
             <img

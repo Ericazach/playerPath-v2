@@ -35,10 +35,10 @@ const UpdateProfile = () => {
     resolver: zodResolver(ProfileValidation),
     defaultValues: {
       file: [],
-      name: currentUser?.name,
-      username: currentUser?.username,
-      email: currentUser?.email,
-      bio: currentUser?.bio || "",
+      name: user.name,
+      username: user.username,
+      email: user.email,
+      bio: user.bio || "",
     },
   });
 

@@ -19,7 +19,7 @@ const MobileNav = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate(0);
+      navigate("/sign-ip");
     }
   }, [isSuccess]);
 

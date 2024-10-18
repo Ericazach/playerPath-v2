@@ -485,6 +485,8 @@ export async function updateUser(user: IUpdateUser) {
       {
         name: user.name,
         bio: user.bio,
+        username: user.username,
+        email: user.email,
         imageUrl: image.imageUrl,
         imageId: image.imageId,
       }

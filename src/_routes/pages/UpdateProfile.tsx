@@ -58,6 +58,8 @@ const UpdateProfile = () => {
       const updatedUser = await updateUser({
         userId: currentUser.$id,
         name: data.name,
+        username: data.username,
+        email: data.email,
         bio: data.bio,
         file: data.file,
         imageUrl: currentUser.imageUrl,
@@ -77,6 +79,8 @@ const UpdateProfile = () => {
         name: updatedUser?.name,
         bio: updatedUser?.bio,
         imageUrl: updatedUser?.imageUrl,
+        username: updatedUser?.username,
+        email: updatedUser?.email,
       });
 
       navigate(`/profile/${id}`);

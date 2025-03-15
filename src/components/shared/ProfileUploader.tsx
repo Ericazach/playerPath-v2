@@ -42,6 +42,7 @@ const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
           Change profile photo
         </p>
       </div>
+      <div></div>
     </div>
   );
 };
